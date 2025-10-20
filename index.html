@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12-Week Youth Training Plan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .phase {
+            margin: 40px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 6px solid #667eea;
+        }
+        
+        .phase h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .week-schedule {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .day-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .day-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        
+        .day-header {
+            background: #667eea;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .focus {
+            color: #764ba2;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .exercise-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .exercise-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .exercise-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .exercise-list li.completed {
+            color: #999;
+            text-decoration: line-through;
+        }
+        
+        .exercise-list input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+            accent-color: #667eea;
+        }
+        
+        .exercise-text {
+            flex: 1;
+        }
+        
+        .progress-bar {
+            margin-top: 15px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            height: 8px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+        
+        .progress-text {
+            font-size: 0.85em;
+            color: #667eea;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+        
+        .exercise-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .exercise-title {
+            color: #667eea;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        
+        .illustration {
+            background: #f0f4ff;
+            border: 3px solid #667eea;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .illustration img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            max-height: 300px;
+        }
+        
+        .illustration iframe {
+            width: 100%;
+            max-width: 560px;
+            height: 315px;
+            border-radius: 8px;
+            border: none;
+        }
+        
+        .video-link {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .video-link:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+        
+        .tip-box {
+            background: #fff9e6;
+            border-left: 4px solid #ffd700;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .tip-box strong {
+            color: #d4a017;
+        }
+        
+        .avoid-box {
+            background: #ffe6e6;
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .avoid-box strong {
+            color: #c92a2a;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .nav-btn:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+        
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        .important-notes {
+            background: #e7f3ff;
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .important-notes h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .important-notes ul {
+            list-style-position: inside;
+            color: #555;
+        }
+        
+        .important-notes li {
+            padding: 5px 0;
+        }
+        
+        @keyframes celebrate {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏀⚽ 12-WEEK YOUTH ATHLETE TRAINING PLAN</h1>
+        <p class="subtitle">For 10-Year-Old Soccer & Basketball Players | Bodyweight Training Only</p>
+        
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="showSection('overview')">Overview</button>
+            <button class="nav-btn" onclick="showSection('phase1')">Phase 1 (Weeks 1-4)</button>
+            <button class="nav-btn" onclick="showSection('phase2')">Phase 2 (Weeks 5-8)</button>
+            <button class="nav-btn" onclick="showSection('phase3')">Phase 3 (Weeks 9-12)</button>
+            <button class="nav-btn" onclick="showSection('exercises')">Exercise Guide</button>
+        </div>
+
+        <!-- Overview Section -->
+        <div id="overview" class="section active">
+            <div class="important-notes">
+                <h3>📋 Program Overview</h3>
+                <ul>
+                    <li><strong>Focus:</strong> Speed, agility, strength, endurance, coordination</li>
+                    <li><strong>Schedule:</strong> 3-4 days per week, 45-60 minutes per session</li>
+                    <li><strong>Equipment:</strong> Cones, jump rope, open space, ball</li>
+                    <li><strong>No weights!</strong> All exercises use bodyweight only</li>
+                </ul>
+            </div>
+
+            <div class="important-notes">
+                <h3>⚠️ Important Safety Rules</h3>
+                <ul>
+                    <li>Always warm up for 5-7 minutes with light jogging and dynamic stretching</li>
+                    <li>Focus on proper form and control, NOT just speed</li>
+                    <li>Cool down with 5 minutes of light stretching after every workout</li>
+                    <li>Stay hydrated - drink water before, during, and after training</li>
+                    <li>Get 8-10 hours of sleep every night</li>
+                    <li>If something hurts, STOP and tell an adult</li>
+                    <li>Keep sessions fun and varied to stay motivated!</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Phase 1 Section -->
+        <div id="phase1" class="section">
+            <div class="phase">
+                <h2>🏃 PHASE 1: Foundation & Movement (Weeks 1-4)</h2>
+                <p><strong>Goal:</strong> Build a strong foundation of movement patterns, coordination, and basic fitness</p>
+                
+                <div class="week-schedule">
+                    <div class="day-card">
+                        <div class="day-header">MONDAY</div>
+                        <div class="focus">Focus: Agility + Speed</div>
+                        <ul class="exercise-list">
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Warm-up (5-7 min)</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Ladder drills (10 min)</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Cone drills (10 min)</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">6x20m sprints</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Shuttle runs (5 min)</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Jump rope (3 min)</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Cool down & stretch</span></li>
+                        </ul>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">0 of 7 completed</div>
+                    </div>
+
+                    <div class="day-card">
+                        <div class="day-header">WEDNESDAY</div>
+                        <div class="focus">Focus: Strength + Core</div>
+                        <ul class="exercise-list">
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Warm-up (5-7 min)</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Bodyweight squats: 3x10</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Push-ups: 3x8</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Planks: 3x20 seconds</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Glute bridges: 3x10</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Bear crawl: 3x20 steps</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Crab walk: 3x20 steps</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Cool down & stretch</span></li>
+                        </ul>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">0 of 8 completed</div>
+                    </div>
+
+                    <div class="day-card">
+                        <div class="day-header">FRIDAY</div>
+                        <div class="focus">Focus: Plyometrics + Balance</div>
+                        <ul class="exercise-list">
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Warm-up (5-7 min)</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Jump squats: 3x10</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Lateral hops: 3x10 each side</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Skater jumps: 3x8 each side</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Single-leg balance: 3x20s each</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Balance drills (10 min)</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Cool down & stretch</span></li>
+                        </ul>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">0 of 7 completed</div>
+                    </div>
+
+                    <div class="day-card">
+                        <div class="day-header">SATURDAY (Optional)</div>
+                        <div class="focus">Focus: Endurance + Play</div>
+                        <ul class="exercise-list">
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Light warm-up (5 min)</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Easy jog: 20-30 minutes</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Soccer or basketball play</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Keep it fun and relaxed!</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Cool down & stretch</span></li>
+                        </ul>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">0 of 5 completed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 2 Section -->
+        <div id="phase2" class="section">
+            <div class="phase">
+                <h2>💪 PHASE 2: Power & Control (Weeks 5-8)</h2>
+                <p><strong>Goal:</strong> Increase power output, improve control, and enhance sport-specific movements</p>
+                
+                <div class="week-schedule">
+                    <div class="day-card">
+                        <div class="day-header">MONDAY</div>
+                        <div class="focus">Focus: Sprint + Acceleration</div>
+                        <ul class="exercise-list">
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Warm-up (5-7 min)</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Sprint starts: 10x10m</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Flying sprints: 6x20m</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Hill sprints: 5x15m</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Jump rope: 5 min</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Cool down & stretch</span></li>
+                        </ul>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">0 of 6 completed</div>
+                    </div>
+
+                    <div class="day-card">
+                        <div class="day-header">WEDNESDAY</div>
+                        <div class="focus">Focus: Strength + Core Stability</div>
+                        <ul class="exercise-list">
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Warm-up (5-7 min)</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Lunges: 3x8 each leg</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Push-ups: 3x10</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Side planks: 3x20s each</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Superman holds: 3x15s</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Mountain climbers: 3x20</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Cool down & stretch</span></li>
+                        </ul>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">0 of 7 completed</div>
+                    </div>
+
+                    <div class="day-card">
+                        <div class="day-header">FRIDAY</div>
+                        <div class="focus">Focus: Plyometrics + Agility</div>
+                        <ul class="exercise-list">
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Warm-up (5-7 min)</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Box jumps: 3x8</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Zig-zag hops: 3x10</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Skater bounds: 3x10 each</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Agility ladder drills: 10 min</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Balance drills: 5 min</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Cool down & stretch</span></li>
+                        </ul>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">0 of 7 completed</div>
+                    </div>
+
+                    <div class="day-card">
+                        <div class="day-header">SATURDAY</div>
+                        <div class="focus">Focus: Sport Conditioning</div>
+                        <ul class="exercise-list">
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Warm-up (5-7 min)</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Small-sided games: 45-60 min</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">OR skill work with ball</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Focus on game situations</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Cool down & stretch</span></li>
+                        </ul>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">0 of 5 completed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 3 Section -->
+        <div id="phase3" class="section">
+            <div class="phase">
+                <h2>🚀 PHASE 3: Performance & Game Simulation (Weeks 9-12)</h2>
+                <p><strong>Goal:</strong> Peak performance, game-ready conditioning, and maximum athleticism</p>
+                
+                <div class="week-schedule">
+                    <div class="day-card">
+                        <div class="day-header">MONDAY</div>
+                        <div class="focus">Focus: Explosiveness + Speed</div>
+                        <ul class="exercise-list">
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Warm-up (5-7 min)</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Sprint starts: 8x15m</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Acceleration runs: 6x20m</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Shuttle runs: 5x30m</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Jump squats: 3x10</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Lateral bounds: 3x8 each</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Cool down & stretch</span></li>
+                        </ul>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">0 of 7 completed</div>
+                    </div>
+
+                    <div class="day-card">
+                        <div class="day-header">WEDNESDAY</div>
+                        <div class="focus">Focus: Strength + Mobility</div>
+                        <ul class="exercise-list">
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Warm-up (5-7 min)</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Split squats: 3x8 each</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Push-ups: 3x12</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Planks: 3x30s</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Leg raises: 3x10</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Yoga stretches: 10 min</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Cool down</span></li>
+                        </ul>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">0 of 7 completed</div>
+                    </div>
+
+                    <div class="day-card">
+                        <div class="day-header">FRIDAY</div>
+                        <div class="focus">Focus: Agility + Reaction</div>
+                        <ul class="exercise-list">
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Warm-up (5-7 min)</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Cone reaction drills: 10 min</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Defensive shuffles: 3x30s</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Jump turns: 3x10</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Balance board work: 5 min</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Reaction games: 10 min</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Cool down & stretch</span></li>
+                        </ul>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">0 of 7 completed</div>
+                    </div>
+
+                    <div class="day-card">
+                        <div class="day-header">SATURDAY</div>
+                        <div class="focus">Focus: Game Play + Endurance</div>
+                        <ul class="exercise-list">
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Light warm-up (5 min)</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Scrimmage: 20-25 min</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">OR continuous play</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">High intensity effort</span></li>
+                            <li><input type="checkbox" onchange="updateProgress(this)"><span class="exercise-text">Cool down & stretch</span></li>
+                        </ul>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">0 of 5 completed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercise Guide Section -->
+        <div id="exercises" class="section">
+            <h2 style="text-align: center; color: #667eea; margin-bottom: 30px;">📚 ILLUSTRATED EXERCISE GUIDE</h2>
+
+            <!-- Ladder Drill -->
+            <div class="exercise-card">
+                <div class="exercise-title">🪜 LADDER DRILL</div>
+                <div class="illustration">
+                    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnZkYzZyaXJmY3V0dzJvcWRyYzd6c2ptZThoOGZ3d3VnNzVrbGN6NCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o6Zt481isNVuQI1l6/giphy.gif" alt="Agility Ladder Drill">
+                    <p style="font-size: 1.2em; margin: 10px 0;">Quick feet through the ladder squares!</p>
+                    <a href="https://giphy.com/explore/agility-ladder" target="_blank" class="video-link">🎥 More Ladder Drill Videos</a>
+                </div>
+                <div class="tip-box">
+                    <strong>✓ DO:</strong> Focus on quick feet and good form. Keep your eyes forward, not down. Pump your arms. Land on the balls of your feet.
+                </div>
+                <div class="avoid-box">
+                    <strong>✗ AVOID:</strong> Crossing your feet or looking down. Don't go so fast you lose control!
+                </div>
+            </div>
+
+            <!-- Bodyweight Squat -->
+            <div class="exercise-card">
+                <div class="exercise-title">🦵 BODYWEIGHT SQUAT</div>
+                <div class="illustration">
+                    <img src="https://media.giphy.com/media/9DgcjJaFU5PBIjykON/giphy.gif" alt="Bodyweight Squat">
+                    <p style="font-size: 1.2em; margin: 10px 0;">Sit back like you're sitting in a chair!</p>
+                    <a href="https://www.youtube.com/results?search_query=youth+bodyweight+squat+tutorial" target="_blank" class="video-link">🎥 Watch Squat Tutorial</a>
+                </div>
+                <div class="tip-box">
+                    <strong>✓ DO:</strong> Keep feet shoulder-width apart. Push your hips back. Keep your chest up. Go down until thighs are parallel to ground. Push through your heels to stand up.
+                </div>
+                <div class="avoid-box">
+                    <strong>✗ AVOID:</strong> Letting your knees go past your toes. Don't round your back!
+                </div>
+            </div>
+
+            <!-- Push-ups -->
+            <div class="exercise-card">
+                <div class="exercise-title">💪 PUSH-UPS</div>
+                <div class="illustration">
+                    <img src="https://media.giphy.com/media/ZxrZPHD4dAHpractiv/giphy.gif" alt="Push-ups">
+                    <p style="font-size: 1.2em; margin: 10px 0;">Strong plank position, lower down, push back up!</p>
+                    <a href="https://www.youtube.com/results?search_query=kids+proper+pushup+form" target="_blank" class="video-link">🎥 Watch Push-up Tutorial</a>
+                </div>
+                <div class="tip-box">
+                    <strong>✓ DO:</strong> Keep your body straight like a plank. Hands under shoulders. Lower your chest to the ground. Keep elbows close to your body. If too hard, do them on your knees!
+                </div>
+                <div class="avoid-box">
+                    <strong>✗ AVOID:</strong> Sagging hips or sticking your bottom up. Don't hold your breath!
+                </div>
+            </div>
+
+            <!-- Plank -->
+            <div class="exercise-card">
+                <div class="exercise-title">🏋️ PLANK HOLD</div>
+                <div class="illustration">
+                    <img src="https://media.giphy.com/media/QaJpql12nB9sCcuEWC/giphy.gif" alt="Plank Hold">
+                    <p style="font-size: 1.2em; margin: 10px 0;">Hold strong like a wooden plank!</p>
+                    <a href="https://giphy.com/explore/plank-exercise" target="_blank" class="video-link">🎥 More Plank Examples</a>
+                </div>
+                <div class="tip-box">
+                    <strong>✓ DO:</strong> Keep body straight from head to heels. Elbows under shoulders. Squeeze your stomach muscles. Breathe normally. Hold for the full time!
+                </div>
+                <div class="avoid-box">
+                    <strong>✗ AVOID:</strong> Letting your hips sag or pike up. Don't hold your breath!
+                </div>
+            </div>
+
+            <!-- Jump Squats -->
+            <div class="exercise-card">
+                <div class="exercise-title">🦘 JUMP SQUATS</div>
+                <div class="illustration">
+                    <img src="https://media.giphy.com/media/l0ExheuNUNGsHzwZy/giphy.gif" alt="Jump Squats">
+                    <p style="font-size: 1.2em; margin: 10px 0;">Squat down, then explode up!</p>
+                    <a href="https://giphy.com/explore/jump-squats" target="_blank" class="video-link">🎥 More Jump Squat Videos</a>
+                </div>
+                <div class="tip-box">
+                    <strong>✓ DO:</strong> Start in a squat position. Explode up with power. Land softly with bent knees. Reset and repeat. Use your arms for momentum!
+                </div>
+                <div class="avoid-box">
+                    <strong>✗ AVOID:</strong> Landing with straight legs. Don't land hard on your heels!
+                </div>
+            </div>
+
+            <!-- Skater Jumps -->
+            <div class="exercise-card">
+                <div class="exercise-title">⛸️ SKATER JUMPS</div>
+                <div class="illustration">
+                    <img src="https://media.giphy.com/media/l2SpZkQ0XT1XtKus0/giphy.gif" alt="Skater Jumps">
+                    <p style="font-size: 1.2em; margin: 10px 0;">Jump side to side like a speed skater!</p>
+                    <a href="https://giphy.com/explore/skater-jumps" target="_blank" class="video-link">🎥 More Skater Jump Videos</a>
+                </div>
+                <div class="tip-box">
+                    <strong>✓ DO:</strong> Jump sideways powerfully. Land on one foot. Bring other leg behind you. Use your arms for balance. Stay on the balls of your feet!
+                </div>
+                <div class="avoid-box">
+                    <strong>✗ AVOID:</strong> Jumping too high - focus on lateral distance. Don't land with a straight leg!
+                </div>
+            </div>
+
+            <!-- Lunges -->
+            <div class="exercise-card">
+                <div class="exercise-title">🚶 WALKING LUNGES</div>
+                <div class="illustration">
+                    <img src="https://media.giphy.com/media/fnD9cHHIwt0gBZcQfW/giphy.gif" alt="Walking Lunges">
+                    <p style="font-size: 1.2em; margin: 10px 0;">Big steps forward, knee to ground!</p>
+                    <a href="https://www.youtube.com/results?search_query=youth+walking+lunge+tutorial" target="_blank" class="video-link">🎥 Watch Lunge Tutorial</a>
+                </div>
+                <div class="tip-box">
+                    <strong>✓ DO:</strong> Take a big step forward. Lower back knee toward ground. Keep front knee over ankle. Push through front heel to stand. Alternate legs.
+                </div>
+                <div class="avoid-box">
+                    <strong>✗ AVOID:</strong> Letting front knee go past your toes. Don't let your knee touch the ground hard!
+                </div>
+            </div>
+
+            <!-- Mountain Climbers -->
+            <div class="exercise-card">
+                <div class="exercise-title">⛰️ MOUNTAIN CLIMBERS</div>
+                <div class="illustration">
+                    <img src="https://media.giphy.com/media/XBjFXznu9X6Q8/giphy.gif" alt="Mountain Climbers">
+                    <p style="font-size: 1.2em; margin: 10px 0;">Run in place from plank position!</p>
+                    <a href="https://giphy.com/explore/mountain-climbers" target="_blank" class="video-link">🎥 More Mountain Climber Videos</a>
+                </div>
+                <div class="tip-box">
+                    <strong>✓ DO:</strong> Start in push-up position. Bring one knee to chest. Switch legs quickly. Keep your core tight. Move fast!
+                </div>
+                <div class="avoid-box">
+                    <strong>✗ AVOID:</strong> Raising your hips too high. Don't go so fast you lose form!
+                </div>
+            </div>
+
+            <!-- Sprints -->
+            <div class="exercise-card">
+                <div class="exercise-title">⚡ SPRINT TRAINING</div>
+                <div class="illustration">
+                    <img src="https://media.giphy.com/media/3oEjI5VtIhHvK37WYo/giphy.gif" alt="Sprint Training">
+                    <p style="font-size: 1.2em; margin: 10px 0;">Run as fast as you can!</p>
+                    <a href="https://www.youtube.com/watch?v=xiYTMBLqp8c" target="_blank" class="video-link">🎥 Watch Sprint Tutorial</a>
+                </div>
+                <div class="tip-box">
+                    <strong>✓ DO:</strong> Lean forward slightly. Pump your arms hard. Drive your knees up. Land on the balls of your feet. Give 100% effort!
+                </div>
+                <div class="avoid-box">
+                    <strong>✗ AVOID:</strong> Running with arms across your body. Don't tense up your shoulders!
+                </div>
+            </div>
+
+            <!-- Jump Rope -->
+            <div class="exercise-card">
+                <div class="exercise-title">🪢 JUMP ROPE</div>
+                <div class="illustration">
+                    <img src="https://media.giphy.com/media/l0HlESHBc1yNGXY6Q/giphy.gif" alt="Jump Rope">
+                    <p style="font-size: 1.2em; margin: 10px 0;">Jump with rhythm and light feet!</p>
+                    <a href="https://www.youtube.com/results?search_query=kids+jump+rope+tutorial" target="_blank" class="video-link">🎥 Watch Jump Rope Tutorial</a>
+                </div>
+                <div class="tip-box">
+                    <strong>✓ DO:</strong> Stay on the balls of your feet. Small, quick jumps. Keep elbows close to body. Use your wrists to turn the rope. Find a rhythm!
+                </div>
+                <div class="avoid-box">
+                    <strong>✗ AVOID:</strong> Jumping too high. Don't use your whole arms to swing the rope!
+                </div>
+            </div>
+        </div>
+
+        <div class="important-notes">
+            <h3>🎯 Remember These Key Points!</h3>
+            <ul>
+                <li><strong>Quality over quantity:</strong> Better to do 5 perfect reps than 10 sloppy ones</li>
+                <li><strong>Rest when needed:</strong> Take 30-60 second breaks between sets</li>
+                <li><strong>Listen to your body:</strong> Some soreness is normal, but sharp pain means STOP</li>
+                <li><strong>Have fun!</strong> Training should be challenging but enjoyable</li>
+                <li><strong>Track progress:</strong> Write down what you do each week to see improvement</li>
+                <li><strong>Eat healthy:</strong> Fuel your body with good food and lots of water</li>
+                <li><strong>Be patient:</strong> You'll see big improvements by week 12!</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        
+        function updateProgress(checkbox) {
+            const dayCard = checkbox.closest('.day-card');
+            const checkboxes = dayCard.querySelectorAll('input[type="checkbox"]');
+            const totalExercises = checkboxes.length;
+            
+            let completedExercises = 0;
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    completedExercises++;
+                    cb.closest('li').classList.add('completed');
+                } else {
+                    cb.closest('li').classList.remove('completed');
+                }
+            });
+            
+            const percentage = (completedExercises / totalExercises) * 100;
+            const progressFill = dayCard.querySelector('.progress-fill');
+            progressFill.style.width = percentage + '%';
+            
+            const progressText = dayCard.querySelector('.progress-text');
+            progressText.textContent = `${completedExercises} of ${totalExercises} completed`;
+            
+            if (completedExercises === totalExercises) {
+                dayCard.style.animation = 'celebrate 0.5s ease';
+                setTimeout(() => {
+                    dayCard.style.animation = '';
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>
